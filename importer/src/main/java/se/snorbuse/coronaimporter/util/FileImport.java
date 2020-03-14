@@ -1,6 +1,7 @@
 package se.snorbuse.coronaimporter.util;
 
 import se.snorbuse.coronaimporter.model.Datapoint;
+import se.snorbuse.coronaimporter.model.Datapoints;
 import se.snorbuse.coronaimporter.model.Location;
 
 import java.io.File;
@@ -13,16 +14,16 @@ import java.util.stream.Collectors;
 
 public class FileImport {
 
-    public List<Datapoint> run(File file) throws IOException {
+    public Datapoints run(File file) throws IOException {
         Optional<String> header = Files.lines(file.toPath()).findFirst();
         List<LocalDate> dates = findDates(header);
 
-        List<Datapoint> datapoints = Files.lines(file.toPath())
+        Datapoints datapoints = Files.lines(file.toPath())
                 .skip(1)
                 .map(line -> formatLine(line))
                 .map(line -> createItem(line, dates))
                 .flatMap(Collection::stream)
-                .collect(Collectors.toList());
+                .collect(Collectors.collectingAndThen(Collectors.toList(), Datapoints::new));
 
 //        datapoints.stream()
 //                .filter(k -> k.getCountry().contains("Korea"))

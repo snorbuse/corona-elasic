@@ -1,5 +1,7 @@
 package se.snorbuse.coronaimporter.model;
 
+import se.snorbuse.coronaimporter.util.HashHelper;
+
 import java.time.LocalDate;
 
 public class Datapoint {
@@ -58,5 +60,17 @@ public class Datapoint {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public String getId() {
+        String id = String.format(
+                "%s-%s-%s",
+                country,
+                province,
+                date.toString()
+        );
+
+        return id;
+//        return HashHelper.sha256(id);
     }
 }
