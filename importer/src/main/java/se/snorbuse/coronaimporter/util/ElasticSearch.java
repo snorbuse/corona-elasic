@@ -3,8 +3,8 @@ package se.snorbuse.coronaimporter.util;
 import se.snorbuse.coronaimporter.model.CombinedDatapoint;
 import se.snorbuse.coronaimporter.model.RestResponse;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class ElasticSearch {
 
@@ -56,19 +56,23 @@ public class ElasticSearch {
     }
 
     private String createJsonString(CombinedDatapoint data) {
-        return String.format(Locale.US,
-                "{\"id\": \"%s\", \"province\": \"%s\", \"country\": \"%s\", \"date\": \"%s\", " +
-                        "\"location\": \"POINT (%.2f %.2f)\", " +
-                        "\"confirmed\": %d, \"deaths\": %d, \"recovered\": %d}",
-                data.getId(),
-                data.getProvince(),
-                data.getCountry(),
-                data.getDate(),
-                data.getLocation().getLon(),
-                data.getLocation().getLat(),
-                data.getConfirmed(),
-                data.getDeaths(),
-                data.getRecovered()
+        List<String> jsonElements = new ArrayList<>();
+
+        jsonElements.add(String.format("\"id\":\"%s\"", data.getId()));
+        jsonElements.add(String.format("\"province\":\"%s\"", data.getProvince()));
+        jsonElements.add(String.format("\"country\":\"%s\"", data.getCountry()));
+        jsonElements.add(String.format("\"date\":\"%s\"", data.getDate()));
+        jsonElements.add(String.format("\"confirmed\":%d", data.getConfirmed()));
+        jsonElements.add(String.format("\"deaths\":%d", data.getDeaths()));
+        jsonElements.add(String.format("\"recovered\":%d", data.getRecovered()));
+        jsonElements.add(
+                String.format(
+                        "\"location\": \"POINT (%.2f %.2f)\"",
+                        data.getLocation().getLon(),
+                        data.getLocation().getLat()
+                )
         );
+
+        return String.format("{%s}", String.join(",", jsonElements));
     }
 }
