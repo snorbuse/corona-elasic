@@ -1,7 +1,5 @@
 package se.snorbuse.coronaimporter.model;
 
-import se.snorbuse.coronaimporter.util.Logger;
-
 import java.time.LocalDate;
 
 public class CombinedDatapoint {

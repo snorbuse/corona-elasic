@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Application {
     public static void main(String[] args) throws IOException {
-//        Logger.setLevel(Logger.Level.DEBUG);
+        // Logger.setLevel(Logger.Level.DEBUG);
         Logger.info("Starting application");
 
         ElasticSearch elasticSearch = new ElasticSearch();
