@@ -47,6 +47,8 @@ public class ElasticSearch {
                 createJsonString(data)
         );
 
+        Logger.debug("Response code: %d, Message: %s", response.getHttpStatus(), response.getResponseMessage());
+
         rowsInserted++;
         if (rowsInserted % LOG_EVERY == 0) {
             Logger.info("Added totally %,d documents to Elastic Search", rowsInserted);
