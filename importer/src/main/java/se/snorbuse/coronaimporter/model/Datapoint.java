@@ -70,7 +70,6 @@ public class Datapoint {
                 date.toString()
         );
 
-        return id;
-//        return HashHelper.sha256(id);
+        return HashHelper.sha256(id);
     }
 }

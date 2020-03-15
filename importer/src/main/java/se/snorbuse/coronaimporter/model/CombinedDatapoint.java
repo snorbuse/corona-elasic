@@ -5,6 +5,7 @@ import se.snorbuse.coronaimporter.util.Logger;
 import java.time.LocalDate;
 
 public class CombinedDatapoint {
+    private String id;
     private String province;
     private String country;
     private int confirmed;
@@ -14,7 +15,7 @@ public class CombinedDatapoint {
     private Location location;
 
     public CombinedDatapoint(Datapoint datapoint, int confirmed, int deaths, int recovered) {
-//        Logger.info("Creating combined datapoint");
+        this.id = datapoint.getId();
         this.province = datapoint.getProvince();
         this.country = datapoint.getCountry();
         this.date = datapoint.getDate();
@@ -23,6 +24,10 @@ public class CombinedDatapoint {
         this.confirmed = confirmed;
         this.deaths = deaths;
         this.recovered = recovered;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getProvince() {
